@@ -1,14 +1,11 @@
-# Use JDK to build the JAR
-FROM openjdk:17-jdk-slim as build
+# Stage 1: Build JAR (use JDK)
+FROM maven:3.9.6-eclipse-temurin-17 AS build  
 WORKDIR /app
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
-RUN ./mvnw clean package -DskipTests  # Builds JAR to /app/target
+COPY . .
+RUN mvn clean package -Dmaven.test.skip=true
 
-# Run the JAR
-FROM openjdk:17-jdk-slim
+# Stage 2: Run JAR (use JRE)
+FROM eclipse-temurin:17-jre-jammy  
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8081  # Adjust port for each service (e.g., 8082 for post-service)
+EXPOSE 8081  
 ENTRYPOINT ["java", "-jar", "app.jar"]
