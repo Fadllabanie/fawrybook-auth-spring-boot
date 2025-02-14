@@ -19,15 +19,6 @@ public class User {
     private String username;
 
 
-//    Example Valid Numbers:
-//            ✅ +1234567890
-//            ✅ 0123456789
-//            ✅ 923456789012345
-//
-//    Example Invalid Numbers:
-//            ❌ 1234 (Too short)
-//            ❌ abcdefghij (Contains non-numeric characters)
-//❌ +12-3456-7890 (Has special characters other than +)
     @NotBlank(message = "Phone number is required")
     @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 digits")
     @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Invalid phone number format")

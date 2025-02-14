@@ -16,7 +16,6 @@ public class RevokedToken {
     @Column(nullable = false)
     private LocalDateTime revokedAt;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

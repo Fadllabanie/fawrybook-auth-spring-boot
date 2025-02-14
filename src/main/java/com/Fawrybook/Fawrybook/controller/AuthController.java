@@ -174,13 +174,4 @@ public class AuthController {
         }
         return null;
     }
-
-    private Long getUserIdFromToken(HttpServletRequest request) {
-        String token = extractToken(request);
-        if (token == null) {
-            return null;
-        }
-        return jwtUtil.extractUserId(token);
-    }
-
 }

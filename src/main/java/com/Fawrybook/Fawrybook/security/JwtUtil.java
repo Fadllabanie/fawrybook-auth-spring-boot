@@ -35,7 +35,7 @@ public class JwtUtil {
 
     public String generateToken(String username, Long userId) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId); // Store userId in JWT
+        claims.put("userId", userId);
         return createToken(claims, username);
     }
 
@@ -60,10 +60,10 @@ public class JwtUtil {
 
     public boolean validateToken(String token) {
         try {
-            extractUsername(token); // If this fails, the token is invalid
-            return !isTokenExpired(token) && !isTokenRevoked(token); // ✅ Reject revoked tokens
+            extractUsername(token);
+            return !isTokenExpired(token) && !isTokenRevoked(token);
         } catch (Exception e) {
-            return false; // ❌ Token is invalid or malformed
+            return false;
         }
     }
 
