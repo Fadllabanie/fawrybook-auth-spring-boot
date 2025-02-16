@@ -126,13 +126,16 @@ public class AuthController {
     @PostMapping("/check-token")
     public ResponseEntity<?> isTokenExists(HttpServletRequest request, @RequestBody(required = false) Map<String, String> requestBody) {
 
+        System.out.println("Request Headers: ");
         request.getHeaderNames().asIterator().forEachRemaining(header ->
+                System.out.println(header + ": " + request.getHeader(header))
         );
 
 
         String token = extractToken(request);
 
         if (token == null || !jwtUtil.validateToken(token)) {
+            System.out.println("Invalid Token!");
             return ResponseEntity.status(401).body(Map.of("valid", false, "message", "Invalid Token"));
         }
 
