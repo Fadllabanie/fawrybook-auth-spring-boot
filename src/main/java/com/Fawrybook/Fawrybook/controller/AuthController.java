@@ -125,25 +125,19 @@ public class AuthController {
 
     @PostMapping("/check-token")
     public ResponseEntity<?> isTokenExists(HttpServletRequest request, @RequestBody(required = false) Map<String, String> requestBody) {
-        System.out.println("🔵 Received /check-token request");
 
-        System.out.println("📥 Request Headers: ");
         request.getHeaderNames().asIterator().forEachRemaining(header ->
-                System.out.println(header + ": " + request.getHeader(header))
         );
 
-        System.out.println("📦 Request Body: " + requestBody);
 
         String token = extractToken(request);
-        System.out.println("🔍 Extracted Token: " + token);
 
         if (token == null || !jwtUtil.validateToken(token)) {
-            System.out.println("❌ Invalid Token!");
             return ResponseEntity.status(401).body(Map.of("valid", false, "message", "Invalid Token"));
         }
 
         boolean isValid = jwtUtil.validateToken(token);
-        System.out.println("✅ Token Validation Result: " + isValid);
+        System.out.println("Token Validation Result: " + isValid);
 
         return ResponseEntity.ok(Map.of("valid", isValid));
     }
